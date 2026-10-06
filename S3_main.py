@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings,HuggingFaceEndpoint,ChatHuggingFace
 from langchain_community.vectorstores import FAISS
@@ -9,7 +10,7 @@ from langchain_classic.chains.combine_documents import create_stuff_documents_ch
 
 
 load_dotenv()
-
+hf_token = os.getenv("HF_TOKEN")
 
 DB_FAISS_PATH = "vectorstore/db_faiss"
 HUGGINGFACE_REPO_ID = "meta-llama/Llama-3.1-8B-Instruct"
