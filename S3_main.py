@@ -1,7 +1,8 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEmbeddings,HuggingFaceEndpoint,ChatHuggingFace
+from langchain_huggingface import HuggingFaceEmbeddings,HuggingFaceEndpoint
+from langchain_groq import ChatGroq
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain_core.messages import HumanMessage,AIMessage
@@ -19,14 +20,11 @@ HUGGINGFACE_REPO_ID = "meta-llama/Llama-3.1-8B-Instruct"
 @st.cache_resource
 def load_llm():
 
-    llm = HuggingFaceEndpoint(
-        repo_id=HUGGINGFACE_REPO_ID,
+    chat_model = ChatGroq(
+        model="openai/gpt-oss-120b",
         temperature=0.5,
-        max_new_tokens=512,
-        task="conversational"
+        max_tokens=512
     )
-
-    chat_model = ChatHuggingFace(llm=llm)
 
     return chat_model
 
